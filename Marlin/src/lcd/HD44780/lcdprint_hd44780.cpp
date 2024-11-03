@@ -56,9 +56,9 @@ typedef struct _hd44780_charmap_t {
 } hd44780_charmap_t;
 
 #ifdef __AVR__
-  #define IV(a) U##a
+  #define IV(a) lchar_t(U##a)
 #else
-  #define IV(a) L##a
+  #define IV(a) lchar_t(L##a)
 #endif
 
 static const hd44780_charmap_t g_hd44780_charmap_device[] PROGMEM = {
@@ -1043,7 +1043,7 @@ int lcd_put_lchar_max(const lchar_t &c, const pixel_len_t max_length) {
  * @param cb_read_byte : the callback function to read one byte from the utf8_str (from RAM or ROM)
  * @param max_length : the pixel length of the string allowed (or number of slots in HD44780)
  *
- * @return the number of pixels advanced
+ * @return the number of characters emitted
  *
  * Draw a UTF-8 string
  */
